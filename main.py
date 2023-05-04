@@ -1,45 +1,19 @@
-start_digit = 0
-last_digit = 0
-searchdigit = 0
-try: 
-    start_digit = int(input('First number:'))
-    last_digit = int(input('last number:'))
-    searchdigit = int(input('Искомое число:'))
-
-
-    start_digit = int(start_digit)
-    last_digit = int(last_digit)
-    searchdigit = int(searchdigit)
-except ValueError:
-    print('Необходимо ввести целое число.')
-
-
-digit_dict = [i for i in range(start_digit,last_digit)]
-digit_dict.sort()
-
-low = start_digit
-mid = len(digit_dict) // 2
-high = len(digit_dict) - 1
-
-cycles = 0
-while digit_dict [mid] != searchdigit and low < high:
-    if searchdigit > mid:
-        low = mid + 1
-        
-        cycles = cycles + 1
-    else:
-        high = mid - 1
-        cycles = cycles + 1
-    mid = (low + high) // 2
-    
-
-if low > high:
-    print("No value")
-else:
-    print("ID =", mid)
-
-if searchdigit == digit_dict[mid]:
-    print('done')
-else:
-    print('error')
-print('Cycles = ', cycles)
+import time
+low, high, find = int(input('Enter low list number: ')),int(input('Enter High list number: ')),int(input('Enter number to find: '))
+l = list(range(low, high))
+l.sort()
+mid = len(l) // 2
+cycle = 0
+start_time = time.time()
+try:
+    while l[mid] != find and low <= high:
+        cycle += 1
+        if find < l[mid]:
+            high = l[mid] - 1
+        else:
+            low = l[mid] + 1
+        mid = (low + high) // 2
+    end_time = time.time() - start_time 
+    print(f'ID = {mid}\n[+]Cycle = {cycle}\n[Time] = {end_time}')
+except IndexError:
+    print('[No Value] Index_Error')
